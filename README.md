@@ -1,4 +1,4 @@
-# Group-E-Project
+# Group-E-Project : Phần mềm tư vấn lựa chọn cá Koi phong thủy phù hợp với bản mệnh (VD: kim, mộc, thủy, hỏa, thổ)
 # Member
 + Võ Tùng Sơn - 042205011735
 + Trần Hải Bằng - 080205005769
