@@ -13,3 +13,9 @@
 #  ASP.Net Core MVC API
 
 <img src='./DEMO_IMG/Screenshot (847).png' width=80%>
+
+# Templates
+
+<img src='./DEMO_IMG/Screenshot (848).png' width=80%>
+<img src='./DEMO_IMG/Screenshot (849).png' width=80%>
+<img src='./DEMO_IMG/Screenshot (850).png' width=80%>
