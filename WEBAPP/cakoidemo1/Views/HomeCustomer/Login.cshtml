@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            margin: 0;
+            background-color: rgb(111, 17, 17,1);
+        }
+
+        header {
+            background-color: rgb(71, 1, 1);
+        }
+
+            header .head-top {
+                background-color: black;
+                display: flex;
+                justify-content: flex-end;
+            }
+
+        .item-head {
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+        }
+
+            .item-head:hover {
+                background-color: white;
+                color: black;
+            }
+
+        header .head-main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background-color: rgb(71, 1, 1);
+            gap: 20px;
+            /* Điều chỉnh khoảng cách giữa logo và content-head */
+        }
+
+        .logo img {
+            width: auto;
+            height: 100px;
+        }
+
+        .content-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            .content-head a {
+                color: white;
+                text-decoration: none;
+                padding: 10px;
+                /* thêm viền vàng */
+                border: 1px solid yellow;
+                border-radius: 5px;
+                margin: 10px;
+            }
+
+                .content-head a:hover {
+                    background-color: white;
+                    color: black;
+                }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        form {
+            width: 300px;
+            padding: 20px;
+            background-color: #911313;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: yellow;
+        }
+
+        .input-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+            .input-box i {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                color: #999;
+            }
+
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            padding-left: 40px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: red;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+                border: none;
+            }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        footer {
+            background-color: rgba(67,1,1,255);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <form action="/dang-nhap.html" method="post">
+            <h1>Đăng Nhập</h1>
+            <div class="input-box">
+                <i class="fas fa-user"></i>
+                <input type="text" name="username" placeholder="Tên đăng nhập">
+            </div>
+            <div class="input-box">
+                <i class="fas fa-lock"></i>
+                <input type="password" name="password" placeholder="Mật khẩu">
+            </div>
+            <button type="submit">Đăng nhập</button>
+        </form>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,179 @@
+﻿
+@model cakoidemo1.Models.ApiResponse
+@{
+    var currentPage = ViewBag.CurrentPage ?? 1; // Lấy trang hiện tại từ ViewBag, mặc định là 1
+    var totalPages = ViewBag.TotalPages; // Giả sử size chứa tổng số trang
+}
+
+
+
+<main>
+    <div class="content">
+        <div class="left">
+            <h1>Trang chủ</h1>
+            <hr>
+            <!-- Bạn có thể thêm nội dung khác ở đây -->
+        </div>
+        <div class="image-grid">
+            @if (Model != null && Model.Data != null && Model.Data.Data.Count > 0)
+            {
+                foreach (var product in Model.Data.Data)
+                {
+                    <div class="image-item">
+                        <a href="#" class="image-container"
+                           data-name="@product.NameProduct"
+                           data-description="@product.Description"
+                           data-img="@Url.Content(product.ImgProduct ?? "~/KOI/asagi.jpg")"
+                           data-menh="@product.DestinyProduct">
+                            <img src="@Url.Content(product.ImgProduct ?? "~/KOI/asagi.jpg")" alt="@product.NameProduct">
+                            <div class="overlay">@product.NameProduct</div>
+                        </a>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>Không có sản phẩm nào để hiển thị.</p>
+            }
+            
+        </div>
+        <!-- Phân trang -->
+        <div class="pagination">
+            <!-- Nút Previous -->
+            @if (currentPage > 1)
+            {
+                <a href="@Url.Action("Index", new { page = currentPage - 1 })">&laquo;</a>
+            }
+
+            <!-- Hiển thị các số trang từ 1 đến 12 -->
+            @for (int i = 1; i <= 10 && i <= totalPages; i++)
+            {
+                <a href="@Url.Action("Index", new { page = i })" class="@(i == currentPage ? "active" : "")">
+                    @i
+                </a>
+            }
+
+            <!-- Nếu có nhiều hơn 12 trang, hiển thị nút ba chấm -->
+            @if (totalPages > 10)
+            {
+                <!-- Nút ba chấm với hộp thoại nhập trang -->
+                <span class="pagination-btn" id="inputPage" onclick="showInput()">...</span>
+                <input type="number" id="pageInput" class="page-input" style="display:none;" placeholder="Page #" min="1" max="@totalPages" onkeydown="if(event.key === 'Enter') goToPage(@totalPages)" />
+
+                <!-- Nút cuối cùng (trang 20 hoặc tổng số trang) -->
+                <a href="@Url.Action("Index", new { page = totalPages })" class="@(totalPages == currentPage ? "active" : "")">
+                    @totalPages
+                </a>
+            }
+
+            <!-- Nút Next -->
+            @if (currentPage < totalPages)
+            {
+                <a href="@Url.Action("Index", new { page = currentPage + 1 })">&raquo;</a>
+            }
+        </div>
+
+    </div>
+</main>
+
+
+<div class="model-popup" id="modalPopup">
+    <div class="popup">
+        <div class="popup-left">
+            <img id="fishImage" src="" alt="Hình ảnh cá">
+        </div>
+        <div class="popup-right">
+            <table>
+                <tr>
+                    <td>Tên cá:</td>
+                    <td id="fishName">Tên cá</td>
+                </tr>
+                <tr>
+                    <td>Mô tả:</td>
+                    <td id="fishDescription">Mô tả</td>
+                </tr>
+                <tr>
+                    <td>Mệnh:</td>
+                    <td id="fishDestiny">Mệnh</td>
+                </tr>
+                <tr>
+                    <td>Phong thủy:</td>
+                    <td id="fishFengShui">Phong thủy</td>
+                </tr>
+            </table>
+            <button class="close" id="contactButton">Liên hệ</button>
+            <button class="close" id="closeModal">Đóng</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Chọn tất cả các mục hình ảnh
+        const imageItems = document.querySelectorAll('.image-container');
+        const modalPopup = document.getElementById('modalPopup');
+        const fishName = document.getElementById('fishName');
+        const fishImage = document.getElementById('fishImage');
+        const fishDescription = document.getElementById('fishDescription');
+        const closeModal = document.getElementById('closeModal');
+        const fishDestiny = document.getElementById('fishDestiny'); // Chắc chắn bạn đã thêm phần tử này vào HTML
+
+        // Lặp qua các mục hình ảnh để thêm sự kiện click
+        imageItems.forEach(imageItem => {
+            imageItem.addEventListener('click', function (e) {
+                e.preventDefault(); // Ngăn chặn sự kiện mặc định của thẻ <a>
+
+                // Lấy thông tin từ thuộc tính data của thẻ
+                const name = this.getAttribute('data-name');
+                const description = this.getAttribute('data-description');
+                const imgSrc = this.getAttribute('data-img');
+                const menh = this.getAttribute('data-menh');
+
+                // Hiển thị thông tin trong modal
+                fishName.textContent = name;
+                fishDescription.textContent = description;
+                fishImage.src = imgSrc;
+                fishDestiny.textContent = menh;
+
+                // Hiển thị modal
+                modalPopup.style.display = 'flex';
+            });
+        });
+
+        closeModal.addEventListener('click', () => {
+            modalPopup.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === modalPopup) {
+                modalPopup.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+
+
+<script>
+    // Hiển thị hộp thoại nhập số trang
+    function showInput() {
+        var inputBox = document.getElementById('pageInput');
+        var inputPage = document.getElementById('inputPage');
+        inputPage.style.display = 'none';  // Ẩn nút ba chấm
+        inputBox.style.display = 'inline'; // Hiển thị hộp thoại nhập trang
+        inputBox.focus();  // Đặt focus vào hộp thoại
+    }
+
+    // Chuyển đến trang được nhập
+    function goToPage(totalPages) {
+        var inputBox = document.getElementById('pageInput');
+        var pageNumber = inputBox.value;
+
+        // Kiểm tra nếu số trang hợp lệ
+        if (pageNumber >= 1 && pageNumber <= totalPages) {
+            window.location.href = '@Url.Action("Index")?page=' + pageNumber;
+        } else {
+            alert('Số trang không hợp lệ. Vui lòng nhập từ 1 đến ' + totalPages);
+        }
+    }
+</script>
