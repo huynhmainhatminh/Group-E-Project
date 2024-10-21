@@ -1,0 +1,595 @@
+/* Reset các kiểu mặc định */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Cài đặt cho body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #6f1111; /* RGB tương đương với rgb(111, 17, 17,1) */
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hoa anh đào */
+.sakura {
+    position: absolute;
+    top: 0;
+    width: 25px;
+    height: 25px;
+    background-image: url('sakura.png'); /* Đường dẫn tới hình ảnh cánh hoa */
+    background-size: cover;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+
+
+/* Ẩn header mobile trên màn hình lớn */
+.mobile {
+    display: none;
+}
+
+/* Header */
+header {
+    background-color: #470101; /* RGB tương đương với rgb(71, 1, 1) */
+}
+
+/* Phần head-top trong header */
+header .head-top {
+    background-color: black;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Các liên kết trong head-top */
+.item-head {
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.item-head:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Phần head-main trong header */
+header .head-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: rgba(67, 1, 1, 1); /* RGB tương đương */
+    gap: 20px;
+    flex-wrap: wrap; /* Đảm bảo linh hoạt trên các màn hình nhỏ */
+}
+
+/* Logo */
+.logo img {
+    height: 100px;
+    width: auto;
+}
+
+/* Điều chỉnh khoảng cách giữa logo và navigation */
+.content-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Các liên kết trong navigation */
+.content-head a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border: 1px solid yellow;
+    border-radius: 5px;
+    margin: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.content-head a:hover {
+    background-color: white;
+    color: black;
+}
+
+.content-head .active {
+    background-color: white;
+    color: black;
+}
+
+/* Dropdown menu */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+/* Nội dung chính */
+main {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    max-width: 1000px;
+    flex-direction: column;
+    gap: 20px;
+    margin: auto;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #911313;
+}
+
+
+/* Nội dung */
+.content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 80vh; /* Đảm bảo content chiếm đủ chiều cao */
+    gap: 20px; /* Khoảng cách giữa các phần */
+    min-width: 900px;
+}
+
+.content .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    font-size: 14px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.breadcrumb a {
+    color: white;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+/* Tiêu đề và đường kẻ */
+main h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: white;
+}
+
+main hr {
+    border: 0;
+    height: 2px;
+    background-color: white;
+    width: 50px;
+    margin-bottom: 20px;
+}
+
+/* Nội dung */
+.content p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Lưới ảnh */
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 ảnh mỗi hàng */
+    gap: 20px;
+}
+
+/* Các item trong lưới ảnh */
+.image-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff; /* Nền trắng cho từng item */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.image-item:hover {
+    transform: scale(1.02);
+}
+
+/* Container ảnh */
+.image-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.image-container img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s;
+    display: block;
+}
+
+/* Phóng to ảnh khi hover */
+.image-container:hover img {
+    transform: scale(1.1);
+}
+
+/* Overlay chữ trên ảnh */
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 1.2em;
+}
+
+.image-container:hover .overlay {
+    opacity: 1;
+}
+
+
+
+/* Phân trang */
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.pagination a {
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+    margin: 0 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #470101; /* Đặt nền cho nút phân trang */
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 600px;
+    margin: auto;
+    margin-top: 20px;
+}
+
+form label {
+    font-size: 18px;
+    color: white;
+    margin-bottom: 5px;
+}
+
+form input[type="text"],
+form input[type="date"],
+form select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+}
+
+form input[type="text"]:focus,
+form input[type="date"]:focus,
+form select:focus {
+    outline: none;
+    border-color: #ccc;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #555;
+}
+
+/* Phần bảng kết quả */
+.ketqua table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid white;
+}
+
+.ketqua table td {
+    padding: 10px 20px;
+    border: 1px solid white;
+    font-size: 16px;
+}
+
+.ketqua table tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.ketqua table tr:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.ketqua table td:first-child {
+    font-weight: bold;
+    width: 40%;
+}
+
+.ketqua table td:last-child {
+    text-align: left;
+}
+
+.ketqua table tr td {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.ketqua table tr:nth-child(even) {
+    background-color: #333;
+}
+
+.ketqua table tr:hover {
+    background-color: #444;
+}
+
+.ketqua table tr td {
+    color: white;
+    border: 1px solid #fff;
+}
+
+.ketqua table tr td a{
+    color: white;
+}
+
+/* Footer */
+footer {
+    background-color: rgba(67, 1, 1, 1); /* RGB tương đương */
+    color: white;
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: auto;
+}
+
+/* Phần top của footer */
+.footer-top {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Các phần trong footer */
+.footer-left,
+.footer-right {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-left h3,
+.footer-right h3 {
+    margin-bottom: 10px;
+}
+
+.footer-left p,
+.footer-right a {
+    margin-bottom: 8px;
+}
+
+.footer-left a,
+.footer-right a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-left a:hover,
+.footer-right a:hover {
+    color: #4CAF50;
+}
+
+/* Phần bottom của footer */
+.footer-bottom {
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+    font-size: 14px;
+}
+
+button {
+    cursor: pointer;
+    background-color: #470101;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.content-menu{
+    background-color: #470101;
+    display: flex;
+    padding: 10px 0;
+    gap: 5px;
+    flex-wrap: wrap;
+
+}
+
+.content-menu a {
+    background: cyan;
+    padding: 10px;
+    margin: 2px;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.content-menu a:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Responsive Design */
+
+/* Hiển thị header mobile trên màn hình nhỏ hơn hoặc bằng 1024px */
+@media (max-width: 1024px) {
+    .mobile {
+        display: block;
+    }
+    .pc {
+        display: none;
+    }
+}
+
+/* Responsive cho màn hình dưới 768px (điện thoại di động) */
+@media (max-width: 768px) {
+    /* Điều chỉnh phần header mobile */
+    header.mobile .head-main {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    /* Giảm kích thước logo */
+    .logo img {
+        height: 70px;
+    }
+
+    /* Căn giữa phần content-head */
+    .content-head {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    /* Các mục trong content-head sẽ có khoảng cách nhỏ hơn */
+    .content-head a {
+        padding: 8px 12px;
+        margin: 5px 0;
+        text-align: center;
+        width: 100%;
+        border: none;
+        border-radius: 0;
+    }
+
+    /* Điều chỉnh kích thước chữ cho nội dung chính */
+    main h1 {
+        font-size: 24px;
+    }
+
+    /* Điều chỉnh lại lề của main */
+    main {
+        width: 100%;
+        padding: 10px;
+    }
+
+    /* Giảm padding cho các mục con của dropdown */
+    .dropdown-content a {
+        padding: 10px 12px;
+    }
+
+    /* Điều chỉnh lưới ảnh cho màn hình nhỏ */
+    .image-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    /* Điều chỉnh phân trang cho màn hình nhỏ */
+    .pagination {
+        gap: 5px;
+    }
+
+    .pagination a {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+}
+
+/* Responsive cho màn hình rất nhỏ (di động nhỏ) */
+@media (max-width: 480px) {
+    /* Giảm kích thước chữ trong mô tả */
+    .mota {
+        font-size: 0.9em;
+    }
+
+    /* Giảm kích thước chữ trong overlay */
+    .overlay {
+        font-size: 1em;
+    }
+}
