@@ -1,4 +1,7 @@
-# Group-E-Project : Phần mềm tư vấn lựa chọn cá Koi phong thủy phù hợp với bản mệnh (VD: kim, mộc, thủy, hỏa, thổ)
+# Phần mềm tư vấn cá Koi  phong thủy
+
+![Logo](https://github.com/huynhmainhatminh/Group-E-Project/blob/main/DEMO_IMG/logo.png)
+
 # Member
 | STT | Họ và Tên | MSSV |
 |--|--|--|
@@ -8,14 +11,3 @@
 | 04 | <div align="center">Phan Văn Thạnh</div> | <div align="center">052205005880</div> |
 | 05 | <div align="center">Nguyễn Hoàng Bách</div> | <div align="center">056205005522</div> |
 | 06 | <div align="center">Trần Ti Na</div> | <div align="center">079305011287</div> |
-
-
-#  ASP.Net Core MVC API
-
-<img src='./DEMO_IMG/Screenshot (847).png' width=80%>
-
-# Templates
-
-<img src='./DEMO_IMG/Screenshot (848).png' width=80%>
-<img src='./DEMO_IMG/Screenshot (849).png' width=80%>
-<img src='./DEMO_IMG/Screenshot (850).png' width=80%>
