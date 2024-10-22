@@ -10,6 +10,11 @@ Phần mềm "Tư vấn lựa chọn cá Koi phong thủy" là một ứng dụn
 ## Tài nguyên sử dụng cho dự án
 ### Database Hệ Thống
 Database : [MySQL](https://www.mysql.com/downloads/)
+
+### Ngôn ngữ lập trình
++ Front-end : HTML, CSS, JavaScript
++ Back-end : C#
+
 ### Framework Hệ Thống
 + Microsoft.EntityFrameworkCore
 + Microsoft.EntityFrameworkCore.Tools
