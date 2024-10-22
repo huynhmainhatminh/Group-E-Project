@@ -1,6 +1,8 @@
 # Phần mềm tư vấn cá Koi  phong thủy
 
-![Logo](https://github.com/huynhmainhatminh/Group-E-Project/blob/main/DEMO_IMG/logo.png)
+<p align="center">
+  <img src="https://github.com/huynhmainhatminh/Group-E-Project/blob/main/DEMO_IMG/logo.png" alt="Logo">
+</p>
 
 # Member
 | STT | Họ và Tên | MSSV |
