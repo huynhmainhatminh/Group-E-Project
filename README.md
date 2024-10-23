@@ -1,5 +1,5 @@
 # Phần mềm tư vấn cá Koi  phong thủy
-
+[![.NET Version](https://img.shields.io/badge/.NET-8.0-blue)](https://dotnet.microsoft.com/download/dotnet/8.0)
 <p align="center">
   <img src="https://github.com/huynhmainhatminh/Group-E-Project/blob/main/DEMO_IMG/logo.png" alt="Logo">
 </p>
