@@ -1,0 +1,138 @@
+﻿@page
+@model TVCaKoi.WebApp.Pages.User.PostModel
+@{
+}
+
+
+<style>
+    /* CSS cho phần đăng bài */
+    .content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+    }
+    .post-article {
+        background-color: rgba(255, 255, 255, 0.15);
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        max-width: 600px;
+        width: 100%;
+        color: #f8f8f8;
+        font-family: Arial, sans-serif;
+    }
+
+        .post-article h2 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            color: #ffffff;
+            text-align: center;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .post-article form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .post-article label {
+            font-size: 15px;
+            color: #f0f0f0;
+            font-weight: 600;
+        }
+
+        .post-article input[type="text"],
+        .post-article input[type="file"],
+        .post-article select,
+        .post-article textarea {
+            width: 100%;
+            padding: 12px;
+            font-size: 15px;
+            color: #333;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            background-color: #f8f8f8;
+            transition: all 0.3s ease;
+        }
+
+            .post-article input[type="text"]:focus,
+            .post-article input[type="file"]:focus,
+            .post-article select:focus,
+            .post-article textarea:focus {
+                outline: none;
+                border-color: #6f1111;
+                box-shadow: 0 0 8px rgba(111, 17, 17, 0.5);
+            }
+
+        .post-article input[type="file"] {
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        .post-article textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .post-article button {
+            background-color: #6f1111;
+            color: #ffffff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+            .post-article button:hover {
+                background-color: #8a1a1a;
+                box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+                transform: translateY(-2px);
+            }
+</style>
+<main>
+    <div class="content">
+        <div class="post-article">
+            <h2>Đăng Bài Viết</h2>
+            <form action="submit-post.html" method="POST" enctype="multipart/form-data">
+                <label for="productName">Tên Sản Phẩm:</label>
+                <input type="text" id="productName" name="productName" placeholder="Nhập tên sản phẩm" required>
+
+                <label for="productColor">Màu Sắc (nếu có):</label>
+                <input type="text" id="productColor" name="productColor" placeholder="Nhập màu sắc sản phẩm">
+
+                <label for="fengshui">Phong Thủy Phù Hợp:</label>
+                <input type="text" id="fengshui" name="fengshui" placeholder="Nhập phong thủy">
+
+                <label for="category">Loại Sản Phẩm:</label>
+                <select id="category" name="category" required>
+                    <option value="" disabled selected>Chọn sản phẩm</option>
+                    <option value="1">Hồ cá</option>
+                    <option value="2">Cá koi</option>
+                    <option value="3">Sản phẩm chăm sóc cá</option>
+                    <option value="4">Sản phẩm trang trí</option>
+                    <option value="5">Thiết bị</option>
+                    <option value="6">Phụ kiện</option>
+                </select>
+
+                <label for="productImage">Hình Ảnh Sản Phẩm:</label>
+                <input type="file" id="productImage" name="productImage" accept="image/*" required>
+
+                <label for="productDescription">Mô Tả Sản Phẩm:</label>
+                <textarea id="productDescription" name="productDescription" placeholder="Nhập mô tả sản phẩm" required></textarea>
+
+                <button type="submit">Đăng Bài</button>
+            </form>
+        </div>
+    </div>
+</main>

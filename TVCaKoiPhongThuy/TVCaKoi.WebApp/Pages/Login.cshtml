@@ -1,0 +1,128 @@
+﻿@page
+@model TVCaKoi.WebApp.Pages.LoginModel
+@{
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            margin: 0;
+            background-color: rgb(111, 17, 17);
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #FFD700; /* Màu vàng */
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Bóng nhẹ */
+        }
+
+        .input-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+            .input-box i {
+                position: absolute;
+                top: 50%;
+                left: 12px;
+                transform: translateY(-50%);
+                color: #ccc;
+                font-size: 1.1rem;
+            }
+
+            .input-box input {
+                width: 100%;
+                padding: 12px 15px 12px 40px;
+                background-color: #fff;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                box-sizing: border-box;
+                font-size: 1rem;
+                color: #333;
+                transition: all 0.3s ease;
+            }
+
+                .input-box input::placeholder {
+                    color: #999;
+                    font-style: normal;
+                    transition: color 0.3s ease;
+                }
+
+                .input-box input:focus {
+                    border-color: #f39c12;
+                    outline: none;
+                    color: #333;
+                }
+
+                    .input-box input:focus::placeholder {
+                        color: #ccc;
+                    }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            background-color: #e74c3c;
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            button:hover {
+                background-color: #c0392b;
+            }
+
+        footer {
+            background-color: rgba(67, 1, 1, 255);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <h1 style="color: #FFFF00; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">Đăng Nhập</h1>
+        <div class="input-box">
+            <i class="fas fa-user"></i>
+            <input type="text" name="username" placeholder="Tên đăng nhập">
+        </div>
+        <div class="input-box">
+            <i class="fas fa-lock"></i>
+            <input type="password" name="password" placeholder="Mật khẩu">
+        </div>
+        <button type="submit">Đăng nhập</button>
+    </main>
+</body>
+
+</html>
+
