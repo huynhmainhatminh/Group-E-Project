@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace TVCaKoi.DAL.Models;
@@ -12,4 +12,10 @@ public partial class QlParameter
     public string NumberFish { get; set; } = null!;
 
     public string Direction { get; set; } = null!;
+
+    public string? Color { get; set; }
+
+    public string? ColorFit { get; set; }
+
+    public string? ColorNotFit { get; set; }
 }
