@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
@@ -25,10 +25,6 @@ public partial class ApptvcakoiContext : DbContext
     public virtual DbSet<QlParameter> QlParameters { get; set; }
 
     public virtual DbSet<QlUser> QlUsers { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=localhost;database=apptvcakoi;user=root;password=minh28052005@@", Microsoft.EntityFrameworkCore.ServerVersion.Parse("9.0.1-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -175,6 +171,15 @@ public partial class ApptvcakoiContext : DbContext
                 .HasColumnName("name_destiny")
                 .UseCollation("utf8mb4_0900_ai_ci")
                 .HasCharSet("utf8mb4");
+            entity.Property(e => e.Color)
+                .HasMaxLength(45)
+                .HasColumnName("color");
+            entity.Property(e => e.ColorFit)
+                .HasMaxLength(45)
+                .HasColumnName("color_fit");
+            entity.Property(e => e.ColorNotFit)
+                .HasMaxLength(45)
+                .HasColumnName("color_not_fit");
             entity.Property(e => e.Direction)
                 .HasMaxLength(45)
                 .HasColumnName("direction")
