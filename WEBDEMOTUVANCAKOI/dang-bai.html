@@ -193,7 +193,17 @@
                 <form action="submit-post.html" method="POST">
                     <label for="title">Tiêu Đề:</label>
                     <input type="text" id="title" name="title" placeholder="Nhập tiêu đề bài viết" required>
-
+                    <!-- chọn phong thủy -->
+                    <label for="fengshui">Nhập Phong Thủy</label>
+                    <!-- add 5 button -->
+                    <div class="fengshui">
+                        <button id="kim">Kim</button>
+                        <button id="thuy">Thủy</button>
+                        <button id="hoa">Hỏa</button>
+                        <button id="moc">Mộc</button>
+                        <button id="tho">Thổ</button>
+                    </div>
+                    <input type="text" id="fengshui" placeholder="Chọn phong thủy phù hợp">
                     <label for="category">Loại Sản Phẩm:</label>
                     <select id="category" name="category" required>
                         <option value="" disabled selected>Chọn sản phẩm</option>
@@ -235,6 +245,35 @@
             <p>&copy; 2024 - Bản quyền thuộc về Công ty ABC</p>
         </div>
     </footer>
+    <script>
+        // Chọn phong thủy
+        const fengshuiInput = document.getElementById('fengshui');
+        // chặn sự kiện nhâp vào input
+        fengshuiInput.addEventListener('keydown', (e) => e.preventDefault());
+        const elements = ['kim', 'thuy', 'hoa', 'moc', 'tho'];
+        let fengshuiValue = '';
+    
+        // Function to update the input field
+        const updateInput = () => {
+            fengshuiInput.value = fengshuiValue.split(',').filter(Boolean).join(', ');
+        };
+    
+        // Add event listeners to each element
+        elements.forEach(elementId => {
+            const element = document.getElementById(elementId);
+            element.addEventListener('click', () => {
+                // Check if the item is already selected
+                if (fengshuiValue.includes(elementId)) {
+                    // Remove the item if already selected
+                    fengshuiValue = fengshuiValue.replace(elementId, '').replace(/,,/g, ',');
+                } else {
+                    // Add the item if not selected
+                    fengshuiValue += `${elementId},`;
+                }
+                updateInput();
+            });
+        });
+    </script>
     <script>
         function createSakura() {
             const sakura = document.createElement('div');
