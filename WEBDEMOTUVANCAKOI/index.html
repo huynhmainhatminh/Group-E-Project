@@ -118,9 +118,40 @@
                         <a href="#">Dịch Vụ 3</a>
                     </div>
                 </div>
-                <a href="#">TƯ VẤN</a>
                 <a href="gia-ca.html">GIÁ CẢ</a>
+                <a href="#">TƯ VẤN</a>
                 <a href="#">LIÊN HỆ</a>
+                <style>
+                    .dropdown-user {
+                        position: relative;
+                        display: inline-block;
+                    }
+                
+                    .dropdown-content-user {
+                        display: none;
+                        position: absolute;
+                        background-color: #f9f9f9;
+                        min-width: 160px;
+                        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+                        z-index: 1;
+                    }
+                
+                    .dropdown-content-user a {
+                        color: black;
+                        padding: 12px 16px;
+                        text-decoration: none;
+                        display: block;
+                    }
+                
+                    .dropdown-content-user a:hover {
+                        background-color: #f1f1f1;
+                    }
+                
+                    .dropdown-user:hover .dropdown-content-user {
+                        display: block;
+                    }
+                </style>
+                
                 <div class="dropdown-user">
                     <a href="#" class="usera" style="border: none; background-color: rgba(67, 1, 1, 1);">
                         <img src="logo.png" alt="Admin" style="width: 40px; height: 40px; border-radius: 50%;">
@@ -156,8 +187,18 @@
                         <a href="#">Dịch Vụ 3</a>
                     </div>
                 </div>
+                <a href="gia-ca.html">GIÁ CẢ</a>
                 <a href="#">TƯ VẤN</a>
                 <a href="#">LIÊN HỆ</a>
+                <div class="dropdown-user">
+                    <a href="#" class="usera" style="border: none; background-color: rgba(67, 1, 1, 1);">
+                        <img src="logo.png" alt="Admin" style="width: 40px; height: 40px; border-radius: 50%;">
+                    </a>
+                    <div class="dropdown-content-user">
+                        <a href="cai-dat.html">Cài Đặt</a>
+                        <a href="dang-bai.html">Bài Đăng</a>
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
@@ -182,7 +223,7 @@
             <div class="image-grid">
                 <!-- Ví dụ về các image-item -->
                 <div class="image-item">
-                    <a href="#" class="image-container" data-name="Asagi" data-description="Asagi là một trong những giống cá koi phổ biến nhất. Cá koi Asagi có màu xanh da trời ở phần lưng và màu đỏ ở phần dưới." data-img="KOI/asagi.jpg" data-menh="Mệnh">
+                    <a href="#" class="image-container" data-name="Asagi" data-description="Asagi là một trong những giống cá koi phổ biến nhất. Cá koi Asagi có màu xanh da trời ở phần lưng và màu đỏ ở phần dưới." data-img="KOI/asagi.jpg" data-menh="Mệnh" data-rating="5">
                         <img src="KOI/asagi.jpg" alt="Asagi">
                         <div class="overlay">Asagi</div>
                     </a>
@@ -291,6 +332,11 @@
                         <td>Phong thủy:</td>
                         <td id="fishFengShui">Phong thủy</td>
                     </tr>
+                    <!-- Đánh giá -->
+                    <tr>
+                        <td>Đánh giá:</td>
+                        <td id="fishRating">Đánh giá</td>
+                    </tr>
                 </table>
                 <button class="close" id="contactButton">Liên hệ</button>
                 <button class="close" id="closeModal">Đóng</button>
@@ -352,6 +398,7 @@
         const fishName = document.getElementById('fishName');
         const fishImage = document.getElementById('fishImage');
         const fishDescription = document.getElementById('fishDescription');
+        const fishRating = document.getElementById('fishRating');
         const closeModal = document.getElementById('closeModal');
 
         // Lặp qua các mục hình ảnh để thêm sự kiện click
@@ -364,6 +411,8 @@
                 const description = this.getAttribute('data-description');
                 const imgSrc = this.getAttribute('data-img');
                 const menh = this.getAttribute('data-menh');
+                const rating = this.getAttribute('data-rating');
+                
 
 
                 // Hiển thị thông tin trong modal
@@ -371,6 +420,13 @@
                 fishDescription.textContent = description;
                 fishImage.src = imgSrc;
                 fishDestiny.textContent = menh;
+                // add icon sao vào fishRating
+                fishRating.innerHTML = '';
+                for (let i = 0; i < rating; i++) {
+                    const star = document.createElement('i');
+                    star.classList.add('fas', 'fa-star');
+                    fishRating.appendChild(star);
+                }
 
                 // Hiển thị modal
                 modalPopup.style.display = 'flex';
