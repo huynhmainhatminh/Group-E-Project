@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Quản lý bài đăng</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="sidebar">
+        <h2>Admin Dashboard</h2>
+        <ul>
+            <li><a href="index.html">Thống kê</a></li>
+            <li><a href="members.html">Quản lý thành viên</a></li>
+            <li><a href="posts.html">Quản lý bài đăng</a></li>
+            <li><a href="products.html">Quản lý sản phẩm</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <h1>Quản lý Bài đăng</h1>
+        <div class="head-table">
+            <button class="add-btn right">Thêm bài viết</button>
+            <select name="xapxep" id="sapxe" class="sapxep">
+                <option value="none">--Chọn--</option>
+                <option value="chuaxacminh">Bài viết chưa duyệt</option>
+                <option value="daxacminh">Bài viết đã duyệt</option>
+            </select>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tiêu đề</th>
+                    <th>Ngày đăng</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody id="post-list">
+                <!-- Danh sách bài đăng sẽ được thêm vào đây bằng JavaScript -->
+            </tbody>
+        </table>
+    </div>
+    <script>
+        const posts = [
+            { id: 1, title: "Bài viết 1", browse: 0, date: "2020-01-01" },
+            { id: 2, title: "Bài viết 2", browse: 1, date: "2020-01-02" }
+        ];
+
+        // Hàm hiển thị bài viết với tham số lọc
+        function displayPosts(filter = "none") {
+            const postList = document.getElementById("post-list");
+            postList.innerHTML = ""; // Xóa nội dung cũ
+
+            // Lọc bài viết dựa trên giá trị của filter
+            const filteredPosts = posts.filter(post => {
+                if (filter === "daxacminh") return post.browse === 1; // Chỉ bài đã duyệt
+                if (filter === "chuaxacminh") return post.browse === 0; // Chỉ bài chưa duyệt
+                return true; // Hiển thị tất cả nếu không lọc
+            });
+
+            // Tạo danh sách bài viết dựa trên bộ lọc
+            filteredPosts.forEach(post => {
+                const row = document.createElement("tr");
+
+                // Kiểm tra trạng thái duyệt bài và thiết lập nút
+                const status = post.browse ? "Đã duyệt" : "Chưa duyệt";
+                const browseButton = post.browse ? "" : `<button class="approve-btn" onclick="approvePost(${post.id})">Duyệt</button>`;
+
+                row.innerHTML = `
+            <td>${post.id}</td>
+            <td>${post.title}</td>
+            <td>${post.date}</td>
+            <td>${status}</td>
+            <td>
+                ${browseButton}
+                <button class="delete-btn" onclick="deletePost(${post.id})">Xóa</button> 
+                <button class="info-btn" onclick="editPost(${post.id})">Edit</button>
+            </td>
+        `;
+                postList.appendChild(row);
+            });
+        }
+
+        // Hàm duyệt bài
+        function approvePost(id) {
+            const post = posts.find(p => p.id === id);
+            if (post) {
+                post.browse = 1; // Đặt trạng thái thành đã duyệt
+                displayPosts(document.getElementById("sapxe").value); // Cập nhật lại danh sách theo bộ lọc
+            }
+        }
+
+        // Hàm xóa bài
+        function deletePost(id) {
+            const index = posts.findIndex(p => p.id === id);
+            if (index !== -1) {
+                posts.splice(index, 1); // Xóa bài viết khỏi danh sách
+                displayPosts(document.getElementById("sapxe").value); // Cập nhật lại danh sách theo bộ lọc
+            }
+        }
+
+        // Hàm chỉnh sửa bài
+        function editPost(id) {
+            alert(`Chỉnh sửa bài viết có ID: ${id}`);
+        }
+
+        // Thêm sự kiện change cho select để lọc bài viết
+        document.getElementById("sapxe").addEventListener("change", function () {
+            const filter = this.value;
+            displayPosts(filter); // Hiển thị danh sách bài viết với bộ lọc
+        });
+
+        // Khởi tạo hiển thị ban đầu
+        document.addEventListener("DOMContentLoaded", () => {
+            displayPosts(); // Hiển thị tất cả bài viết khi tải trang
+        });
+
+    </script>
+    <script src="js/scripts.js"></script>
+</body>
+
+</html>

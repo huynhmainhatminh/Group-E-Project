@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Thống kê</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <div class="sidebar">
+    <h2>Admin Dashboard</h2>
+    <ul>
+      <li><a href="index.html">Thống kê</a></li>
+      <li><a href="members.html">Quản lý thành viên</a></li>
+      <li><a href="posts.html">Quản lý bài đăng</a></li>
+      <li><a href="products.html">Quản lý sản phẩm</a></li>
+    </ul>
+  </div>
+  <div class="content">
+    <h1>Trang Thống kê</h1>
+    <div class="stats">
+      <div class="stat-box">
+        <h3>Số lượng thành viên</h3>
+        <p id="total-members">0</p>
+        <button onclick="window.location.href='members.html';">Hiển thị</button>
+      </div>
+      <div class="stat-box">
+        <h3>Số lượng bài đăng</h3>
+        <p id="total-posts">0</p>
+      </div>
+      <div class="stat-box">
+        <h3>Số lượng sản phẩm</h3>
+        <p id="total-products">0</p>
+      </div>
+      <!-- số lượng bài viết chưa duyệt -->
+      <div class="stat-box">
+        <h3>Số lượng bài viết chưa duyệt</h3>
+        <p id="total-pending-posts">0</p>
+      </div>
+    </div>
+    <h2>Thống kê Tăng trưởng Thành viên</h2>
+    <canvas id="memberGrowthChart" width="400" height="200"></canvas>
+
+    <!-- Biểu đồ cột -->
+    <h2>Thống kê Số Lượng Bài Đăng Theo Tháng</h2>
+    <canvas id="postCountChart" width="400" height="200"></canvas>
+  </div>
+  <script>
+    // Dữ liệu giả lập cho biểu đồ
+    const memberGrowthData = [5, 10, 15, 20, 30, 35, 40];
+    const postCountData = [10, 20, 15, 25, 30, 45, 50];
+    const months = ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7"];
+
+    // Khởi tạo biểu đồ đường cho Tăng trưởng thành viên
+    function createMemberGrowthChart() {
+      const ctx = document.getElementById("memberGrowthChart").getContext("2d");
+      new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: months,
+          datasets: [{
+            label: "Tăng trưởng thành viên",
+            data: memberGrowthData,
+            borderColor: "blue",
+            fill: false
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',
+            }
+          }
+        }
+      });
+    }
+
+    // Khởi tạo biểu đồ cột cho Số lượng bài đăng theo tháng
+    function createPostCountChart() {
+      const ctx = document.getElementById("postCountChart").getContext("2d");
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: months,
+          datasets: [{
+            label: "Số lượng bài đăng",
+            data: postCountData,
+            backgroundColor: "orange"
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',
+            }
+          }
+        }
+      });
+    }
+
+    // Gọi hàm tạo biểu đồ khi trang đã tải
+    document.addEventListener("DOMContentLoaded", () => {
+      if (document.getElementById("total-members")) displayStats();
+      if (document.getElementById("member-list")) displayMembers();
+      if (document.getElementById("post-list")) displayPosts();
+
+      createMemberGrowthChart(); // Tạo biểu đồ đường
+      createPostCountChart();    // Tạo biểu đồ cột
+    });
+  </script>
+  <script src="js/scripts.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,198 @@
+body {
+  display: flex;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #911313;
+  color: #fff;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #6f1111;
+  color: #fff;
+  padding: 20px;
+  height: 100vh; /* Chiều cao đầy đủ */
+  position: fixed; /* Để sidebar luôn nằm ở bên trái */
+}
+
+.sidebar h2 {
+  text-align: center;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 10px 0;
+}
+
+.sidebar ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  margin-left: 220px; /* Bù lại cho chiều rộng sidebar */
+  padding-left: 40px;
+}
+
+.content h1 {
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px;
+}
+
+.stats {
+  display: flex;
+  gap: 10px;
+  color: #333;
+  width: 100%;
+}
+
+.stat-box {
+  padding: 10px;
+  background-color: #f4f4f4;
+  text-align: center;
+  flex: 1;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+/* Style cho bảng */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng cho toàn bảng */
+  border-radius: 8px; /* Bo tròn các góc của bảng */
+  overflow: hidden; /* Đảm bảo bo tròn áp dụng cả phần viền */
+}
+
+/* Style cho tiêu đề bảng */
+table thead tr {
+  background-color: #4CAF50; /* Màu nền cho tiêu đề bảng */
+  color: white; /* Màu chữ cho tiêu đề */
+  font-weight: bold;
+}
+
+/* Style cho các ô trong bảng */
+table th, table td {
+  padding: 12px 15px; /* Khoảng cách trong ô */
+  border-bottom: 1px solid #ddd; /* Viền dưới cho các ô */
+  text-align: center; /* Căn giữa nội dung */
+  color: #333; /* Màu chữ */
+}
+
+/* Style cho hàng chẵn và lẻ */
+table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+table tbody tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+/* Hiệu ứng khi hover vào hàng */
+table tbody tr:hover {
+  background-color: #f1f1f1; /* Đổi màu nền khi hover */
+}
+
+/* Style cho hàng cuối cùng không có border-bottom */
+table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+
+/* Style cho thẻ select */
+select {
+    padding: 10px; /* Khoảng cách bên trong */
+    border: 1px solid #ccc; /* Viền mỏng xám */
+    border-radius: 5px; /* Bo góc */
+    background-color: #f9f9f9; /* Màu nền */
+    font-size: 16px; /* Cỡ chữ */
+    color: #333; /* Màu chữ */
+    appearance: none; /* Xóa bỏ mũi tên mặc định của trình duyệt */
+    cursor: pointer; /* Con trỏ dạng tay khi hover */
+    text-align: center; /* Căn giữa nội dung */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+}
+
+/* Hiệu ứng khi hover vào select */
+select:hover {
+    border-color: #888; /* Đổi màu viền khi hover */
+}
+
+/* Hiệu ứng khi select được chọn */
+select:focus {
+    outline: none; /* Xóa viền mặc định của trình duyệt */
+    border-color: #4CAF50; /* Màu viền khi focus */
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.4); /* Hiệu ứng đổ bóng khi focus */
+}
+
+.right {
+  float: right;
+}
+
+/* button */
+
+/* Style cho nút chung */
+button {
+  background-color: #4CAF50; /* Màu nền */
+  color: white; /* Màu chữ */
+  padding: 10px 20px; /* Khoảng cách padding */
+  border: none; /* Bỏ viền */
+  border-radius: 5px; /* Bo góc */
+  cursor: pointer; /* Con trỏ thành tay khi hover */
+  font-size: 16px; /* Cỡ chữ */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Hiệu ứng */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+}
+
+/* Hiệu ứng khi hover */
+button:hover {
+  background-color: #45a049; /* Đổi màu nền khi hover */
+  transform: translateY(-2px); /* Nâng nút lên chút khi hover */
+}
+
+/* Hiệu ứng khi click vào nút */
+button:active {
+  background-color: #3e8e41; /* Màu khi click */
+  transform: translateY(0); /* Trở lại vị trí ban đầu */
+}
+
+/* Style cho nút xóa (nếu cần) */
+button.delete-btn {
+  background-color: #f44336; /* Màu đỏ cho nút xóa */
+}
+
+button.delete-btn:hover {
+  background-color: #d32f2f; /* Màu khi hover cho nút xóa */
+}
+
+button.warning-btn {
+  background-color: #ff9800; /* Màu cam cho nút cảnh báo */
+}
+
+button.warning-btn:hover {
+  background-color: #f57c00; /* Màu khi hover cho nút cảnh báo */
+}
+
+button.success-btn {
+  background-color: #4CAF50; /* Màu xanh cho nút thành công */
+}
+
+button.success-btn:hover {
+  background-color: #45a049; /* Màu khi hover cho nút thành công */
+}
+
+button.info-btn {
+  background-color: #2196F3; /* Màu xanh dương cho nút thông tin */
+}
+
+button.info-btn:hover {
+  background-color: #1e87f0; /* Màu khi hover cho nút thông tin */
+}
