@@ -26,6 +26,8 @@ Database : [MySQL](https://www.mysql.com/downloads/)
 + URL ADMIN : http://103.20.102.38/Admin/Index
 + Login Admin : admin | password
 
+### Link Review Sản Phẩm
++ URL YOUTUBE : https://www.youtube.com/watch?v=RW5rsPGYGBM&t=1s
 
 ## Danh sách thành viên đóng góp cho dự án
 | STT | Họ và Tên | MSSV |
