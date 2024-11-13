@@ -1,3 +1,7 @@
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
+using TVCaKoi.WebApp.DAL;
+
 namespace TVCaKoi.WebApp
 {
 	public class Program
@@ -6,13 +10,31 @@ namespace TVCaKoi.WebApp
 		{
 			var builder = WebApplication.CreateBuilder(args);
 
-			// Add services to the container.
-			builder.Services.AddRazorPages();
+            // Add services to the container.
+            builder.Services.AddRazorPages().AddRazorPagesOptions(options =>
+            {
+            // Yêu cầu xác thực cho tất cả các trang trong thư mục /Admin
+                options.Conventions.AuthorizeFolder("/Admin/Index");
+            });
 
-			var app = builder.Build();
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.LoginPath = "/Admin/Login"; // Đường dẫn đến trang đăng nhập
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5); // Đặt thời gian sống của cookie là 5 phút
+                options.SlidingExpiration = true; // Tự động gia hạn cookie khi người dùng hoạt động
+            });
 
-			// Configure the HTTP request pipeline.
-			if (!app.Environment.IsDevelopment())
+            // Kết nối database
+            var connectionstring = builder.Configuration.GetConnectionString("MySqlConn");
+            builder.Services.AddDbContext<ApptvcakoiContext>(options =>
+            {
+                options.UseMySql(connectionstring, ServerVersion.AutoDetect(connectionstring));
+            });
+
+
+            var app = builder.Build();
+            // Configure the HTTP request pipeline.
+            if (!app.Environment.IsDevelopment())
 			{
 				app.UseExceptionHandler("/Error");
 				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
@@ -24,7 +46,8 @@ namespace TVCaKoi.WebApp
 
 			app.UseRouting();
 
-			app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
 			app.MapRazorPages();
 
