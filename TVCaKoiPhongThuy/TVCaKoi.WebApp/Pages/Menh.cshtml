@@ -1,43 +1,61 @@
 ﻿@page
-@model TVCaKoi.WebApp.Pages.IndexModel
+@model TVCaKoi.WebApp.Pages.MenhModel
 @{
     var currentPage = Model.CurrentPage;
     var totalPages = Model.TotalPages;
-    var typeProduct = Model.TypeProduct; // Lấy giá trị của type_product từ Model
+    var name_menh = Model.Name_Destiny;
 }
+<style>
+    /* Ngôi sao màu vàng */
 
+    .fas.fa-star {
+        color: #FFD700; /* Màu vàng */
+        margin-right: 2px; /* Thêm khoảng cách giữa các sao nếu cần */
+    }
+</style>
 <main>
     <div class="content">
         <div class="head">
             <div class="left">
-                <h1>Trang chủ</h1>
+                <h1>Mệnh : @name_menh</h1>
                 <hr>
                 <!-- Bạn có thể thêm nội dung khác ở đây -->
             </div>
-            <div class="right">
-                <button class="menu">Loại Sản Phẩm</button>
-            </div>
-        </div>
-        <div id="menu" class="content-menu" style="display: none;">
-            <a href="#" data-type="1">Hồ cá</a>
-            <a href="#" data-type="2">Cá koi</a>
-            <a href="#" data-type="3">Sản phẩm chăm sóc cá</a>
-            <a href="#" data-type="4">Sản phẩm trang trí</a>
-            <a href="#" data-type="5">Thiết bị</a>
-            <a href="#" data-type="6">Phụ kiện</a>
         </div>
         <div class="image-grid">
             @if (Model.ApiResponseProducts != null && Model.ApiResponseProducts.Data != null && Model.ApiResponseProducts.Data.Data.Count > 0)
             {
+                var menhColors_khac = new Dictionary<string, string[]>
+            {
+            { "Kim", new string[] { "Đỏ", "Hồng" } },
+            { "Thủy", new string[] { "Vàng", "Nâu" } },
+            { "Mộc", new string[] { "Trắng", "Bạc" } },
+            { "Hỏa", new string[] { "Đen", "Xanh Dương" } },
+            { "Thổ", new string[] { "Xanh Lá Cây" } }
+            };
                 foreach (var product in Model.ApiResponseProducts.Data.Data)
                 {
+                    int count_rating = 5;
+                    if (menhColors_khac.ContainsKey(name_menh))
+                    {
+                        foreach (string color in menhColors_khac[name_menh])
+                        {
+                            if (product.ColorProduct.Contains(color))
+                            {
+                                count_rating -= 1;
+                            }
+                        }
+                    }
+
+                    // Tính số lượng phần tử trùng khớp giữa hai mảng
                     <div class="image-item">
                         <a href="#" class="image-container"
                            data-name="@product.NameProduct"
                            data-description="@product.Description"
                            data-img="@Url.Content(product.ImgProduct ?? "~/KOI/asagi.jpg")"
                            data-menh="@product.DestinyProduct"
-                           data-fengshui="@product.ColorProduct">
+                           data-fengshui="@product.ColorProduct"
+                           data-rating="@count_rating">
                             <img src="@Url.Content(product.ImgProduct ?? "~/KOI/asagi.jpg")" alt="@product.NameProduct">
                             <div class="overlay">@product.NameProduct</div>
                         </a>
@@ -55,13 +73,13 @@
             <!-- Nút Previous -->
             @if (currentPage > 1)
             {
-                <a asp-page="./Index" asp-route-currentPage="@(currentPage - 1)">&laquo;</a>
+                <a asp-page="./Menh" asp-route-destiny="@name_menh" asp-route-currentPage="@(currentPage - 1)">&laquo;</a>
             }
 
             <!-- Hiển thị các số trang từ 1 đến 10 -->
             @for (int i = 1; i <= 10 && i <= totalPages; i++)
             {
-                <a asp-page="./Index" asp-route-currentPage="@(i)" asp-route-type_product="@(typeProduct)" class="@(i == currentPage ? "active" : "")">@i</a>
+                <a asp-page="./Menh" asp-route-destiny="@name_menh" asp-route-currentPage="@(i)" class="@(i == currentPage ? "active" : "")">@i</a>
             }
 
             <!-- Nếu có nhiều hơn 10 trang, hiển thị nút ba chấm -->
@@ -72,13 +90,13 @@
                 <input type="number" id="pageInput" class="page-input" style="display:none;" placeholder="Page #" min="1" max="@totalPages" onkeydown="if(event.key === 'Enter') goToPage(@totalPages)" />
 
                 <!-- Nút cuối cùng -->
-                <a asp-page="./Index" asp-route-currentPage="@(totalPages)" asp-route-type_product="@(typeProduct)" class="@(totalPages == currentPage ? "active" : "")">@totalPages</a>
+                <a asp-page="./Menh" asp-route-destiny="@name_menh" asp-route-currentPage="@(totalPages)" class="@(totalPages == currentPage ? "active" : "")">@totalPages</a>
             }
 
             <!-- Nút Next -->
             @if (currentPage < totalPages)
             {
-                <a asp-page="./Index" asp-route-currentPage="@(currentPage + 1)" asp-route-type_product="@(typeProduct)">&raquo;</a>
+                <a asp-page="./Menh" asp-route-destiny="@name_menh" asp-route-currentPage="@(currentPage + 1)">&raquo;</a>
             }
         </div>
     </div>
@@ -87,13 +105,12 @@
 <div class="model-popup" id="modalPopup">
     <div class="popup">
         <div class="popup-left">
-            <img id="fishImage" src="" alt="Hình ảnh cá"
-                 style="border: 4px solid gold; width: 100%; height: auto;">
+            <img id="fishImage" src="" alt="Hình ảnh cá">
         </div>
         <div class="popup-right">
             <table>
                 <tr>
-                    <td>Tên sản phẩm:</td>
+                    <td>Tên cá:</td>
                     <td id="fishName">Tên cá</td>
                 </tr>
                 <tr>
@@ -106,29 +123,20 @@
                 </tr>
                 <tr>
                     <td>Màu sắc:</td>
-                    <td id="fishFengShui">Phong thủy</td>
+                    <td id="fishFengShui">Màu sắc</td>
                 </tr>
+                <!-- Đánh giá -->
+                <tr>
+                    <td>Đánh giá:</td>
+                    <td id="fishRating">Đánh giá</td>
+                </tr>
+
             </table>
             <button class="close" id="contactButton">Liên hệ</button>
             <button class="close" id="closeModal">Đóng</button>
         </div>
     </div>
 </div>
-
-
-<script>
-    // Hiển thị menu khi click vào nút Menu
-    const menuButton = document.querySelector('.menu');
-    const menu = document.getElementById('menu');
-
-    menuButton.addEventListener('click', () => {
-        if (menu.style.display === 'none') {
-            menu.style.display = 'block';
-        } else {
-            menu.style.display = 'none';
-        }
-    });
-</script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -140,7 +148,7 @@
                 const typeProduct = this.getAttribute('data-type'); // Lấy giá trị type_product từ data-type
 
                 // Chuyển hướng đến trang Index với type_product và currentPage là 1
-                window.location.href = `?type_product=${typeProduct}&currentPage=1`;
+                window.location.href = `?destiny=${typeProduct}&currentPage=1`;
             });
         });
     });
@@ -149,35 +157,44 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Chọn tất cả các mục hình ảnh
         const imageItems = document.querySelectorAll('.image-container');
         const modalPopup = document.getElementById('modalPopup');
         const fishName = document.getElementById('fishName');
         const fishImage = document.getElementById('fishImage');
         const fishDescription = document.getElementById('fishDescription');
         const closeModal = document.getElementById('closeModal');
-        const fishDestiny = document.getElementById('fishDestiny'); // Chắc chắn bạn đã thêm phần tử này vào HTML
+        const fishDestiny = document.getElementById('fishDestiny');
         const fishFengShui = document.getElementById('fishFengShui');
+        const fishRating = document.getElementById('fishRating'); // Sử dụng đúng biến này
 
-        // Lặp qua các mục hình ảnh để thêm sự kiện click
         imageItems.forEach(imageItem => {
             imageItem.addEventListener('click', function (e) {
-                e.preventDefault(); // Ngăn chặn sự kiện mặc định của thẻ <a>
+                e.preventDefault();
 
-                // Lấy thông tin từ thuộc tính data của thẻ
                 const name = this.getAttribute('data-name');
                 const description = this.getAttribute('data-description');
                 const imgSrc = this.getAttribute('data-img');
                 const menh = this.getAttribute('data-menh');
                 const fengshui = this.getAttribute('data-fengshui');
+                const rating = parseInt(this.getAttribute('data-rating')); // Lấy giá trị rating
 
                 // Hiển thị thông tin trong modal
                 fishName.textContent = name;
                 fishDescription.textContent = description;
                 fishImage.src = imgSrc;
-                fishDestiny.textContent = menh;
                 fishFengShui.textContent = fengshui;
+                fishDestiny.textContent = menh;
 
+                // Thêm sao đánh giá
+                fishRating.innerHTML = ''; // Xóa nội dung cũ
+                for (let i = 0; i < rating; i++) {
+                    const star = document.createElement('i');
+                    star.classList.add('fas', 'fa-star');
+                    fishRating.appendChild(star);
+                }
+                const ratingText = document.createElement('span');
+                ratingText.textContent = ` (${rating} sao)`; // Hiển thị số lượng sao
+                fishRating.appendChild(ratingText);
                 // Hiển thị modal
                 modalPopup.style.display = 'flex';
             });
@@ -206,33 +223,15 @@
     }
 
 
-    function goToPage(totalPages, typeProduct) {
+    function goToPage(totalPages) {
         var inputBox = document.getElementById('pageInput');
         var pageNumber = inputBox.value;
 
         if (pageNumber >= 1 && pageNumber <= totalPages) {
-            window.location.href = `?currentPage=${pageNumber}&type_product=${typeProduct}`;
+            window.location.href = `?currentPage=${pageNumber}`;
         } else {
             alert('Số trang không hợp lệ. Vui lòng nhập từ 1 đến ' + totalPages);
         }
     }
 </script>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Lấy TempData["SuccessMessage"] từ Razor và lưu vào sessionStorage
-        const successMessage = '@TempData["SuccessMessage"]';
-
-        // Nếu TempData có thông báo thành công, lưu vào sessionStorage
-        if (successMessage && successMessage !== "null") {
-            sessionStorage.setItem("successMessage", successMessage);
-        }
-
-        // Kiểm tra sessionStorage và hiển thị SweetAlert nếu có thông báo thành công
-        const message = sessionStorage.getItem("successMessage");
-        if (message) {
-            Swal.fire("Thành công!", message, "success");
-            sessionStorage.removeItem("successMessage"); // Xóa sau khi hiển thị
-        }
-    });
-</script>

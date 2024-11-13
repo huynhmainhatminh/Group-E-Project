@@ -1,6 +1,7 @@
 ﻿@page
 @model TVCaKoi.WebApp.Pages.TinhToanMenhModel
 @{
+    ViewData["Title"] = "Tính Toán Bản Mệnh";
 }
 
 <main>
@@ -11,64 +12,59 @@
                 <hr>
             </div>
         </div>
-        <!-- Form tính toán -->
-        <form id="koiForm">
+        <!-- Form tính toán với phương thức POST -->
+        <form id="koiForm" method="post">
             <label for="name">Họ và tên:</label>
-            <input type="text" id="name" name="name" required>
-
+            <input type="text" id="name" name="Name" required>
+            <br>
             <label for="dob">Ngày tháng năm sinh:</label>
-            <input type="date" id="dob" name="dob" required>
-
+            <input type="date" id="dob" name="Dob" required>
+            <br>
             <label for="sex">Giới tính:</label>
-            <select id="sex" name="sex" required>
+            <select id="sex" name="Sex" required>
                 <option value="nam">Nam</option>
                 <option value="nu">Nữ</option>
             </select>
-
-            <button type="button" onclick="tinhToan()">Tính Toán</button>
+            <br>
+            <button type="submit">Tính Toán</button>
         </form>
 
+
         <!-- Hiển thị kết quả -->
-        <div class="ketqua" id="ketqua">
-            <table>
-                <tr>
-                    <td>Mệnh phù hợp của bạn:</td>
-                    <td id="menh">Chưa xác định</td>
-                </tr>
-                <tr>
-                    <td>Màu tương sinh:</td>
-                    <td id="color">Chưa xác định</td>
-                </tr>
-                <tr>
-                    <td>Màu tương hợp:</td>
-                    <td id="color">Chưa xác định</td>
-                </tr>
-                <tr>
-                    <td>Màu tương khắc:</td>
-                    <td id="color">Chưa xác định</td>
-                </tr>
-                <tr>
-                    <td>Cá koi phù hợp:</td>
-                    <td id="ketQua"><a href="index.html" target="_blank" rel="noopener noreferrer">Xem chi tiết</a></td>
-                </tr>
-                <tr>
-                    <td>Số lượng cá phù hợp:</td>
-                    <td id="soluong">10</td>
-                </tr>
-                <tr>
-                    <td>Vị trí hồ cá phù hợp:</td>
-                    <td id="vitri">Tây Bắc</td>
-                </tr>
-            </table>
-        </div>
+        @if (Model.PhongThuyData != null)
+        {
+            <div class="ketqua">
+                <table>
+                    <tr>
+                        <td>Mệnh của bạn:</td>
+                        <td>@Model.PhongThuyData.NameDestiny</td>
+                    </tr>
+                    <tr>
+                        <td>Màu tương sinh:</td>
+                        <td>@Model.PhongThuyData.Color</td>
+                    </tr>
+                    <tr>
+                        <td>Màu tương hợp:</td>
+                        <td>@Model.PhongThuyData.ColorFit</td>
+                    </tr>
+                    <tr>
+                        <td>Màu tương khắc:</td>
+                        <td>@Model.PhongThuyData.ColorNotFit</td>
+                    </tr>
+                    <tr>
+                        <td>Số lượng cá phù hợp:</td>
+                        <td>@Model.PhongThuyData.NumberFish</td>
+                    </tr>
+                    <tr>
+                        <td>Vị trí hồ cá phù hợp:</td>
+                        <td>@Model.PhongThuyData.Direction</td>
+                    </tr>
+                    <tr>
+                        <td>Các sản phẩm phù hợp:</td>
+                        <td><a asp-area="" asp-page="Menh" asp-route-destiny="@Model.PhongThuyData.NameDestiny">Xem chi tiết</a></td>
+                    </tr>
+                </table>
+            </div>
+        }
     </div>
 </main>
-
-
-<script>
-    function tinhToan() {
-        // Hiển thị kết quả
-        const ketqua = document.getElementById('ketqua');
-        ketqua.style.display = 'block';
-    }
-</script>

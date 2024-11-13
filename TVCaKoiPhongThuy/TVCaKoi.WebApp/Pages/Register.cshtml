@@ -15,108 +15,30 @@
     <style>
         body {
             margin: 0;
-            background-color: rgb(111, 17, 17,1);
+            background-color: rgb(111, 17, 17);
+            font-family: Arial, sans-serif;
+            color: #fff;
         }
-
-        header {
-            background-color: rgb(71, 1, 1);
-        }
-
-            header .head-top {
-                background-color: black;
-                display: flex;
-                justify-content: flex-end;
-            }
-
-        .item-head {
-            color: white;
-            padding: 10px;
-            text-decoration: none;
-        }
-
-            .item-head:hover {
-                background-color: white;
-                color: black;
-            }
-
-        header .head-main {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 10px;
-            background-color: rgb(71, 1, 1);
-            gap: 20px;
-            /* Điều chỉnh khoảng cách giữa logo và content-head */
-        }
-
-        .logo img {
-            width: auto;
-            height: 100px;
-        }
-
-        .content-head {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-            .content-head a {
-                color: white;
-                text-decoration: none;
-                padding: 10px;
-                /* thêm viền vàng */
-                border: 1px solid yellow;
-                border-radius: 5px;
-                margin: 10px;
-            }
-
-                .content-head a:hover {
-                    background-color: white;
-                    color: black;
-                }
 
         main {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            margin-top: 20px;
-        }
-
-        form {
-            width: 300px;
-            padding: 20px;
-            background-color: #911313;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 10px;
-            margin-bottom: 10px;
+            margin-top: 50px;
         }
 
         h1 {
             text-align: center;
-            color: yellow;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #FFD700; /* Màu vàng */
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Bóng nhẹ */
         }
 
         .input-box {
             position: relative;
             margin-bottom: 20px;
-        }
-
-            .input-box i {
-                position: absolute;
-                top: 10px;
-                left: 10px;
-                color: #999;
-            }
-
-        input {
-            width: calc(100% - 20px);
-            padding: 10px;
-            padding-left: 40px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            outline: none;
-            box-sizing: border-box;
         }
 
             .input-box i {
@@ -158,82 +80,60 @@
 
         button {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: none;
-            background-color: red;
+            background-color: #e74c3c;
             color: white;
             font-weight: bold;
+            font-size: 1rem;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
-        /* Dropdown Styles */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: white;
-            min-width: 200px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            overflow: hidden;
-            z-index: 1000;
-            margin-top: 10px;
-        }
-
-            .dropdown-content a {
-                color: #333;
-                padding: 12px 14px;
-                text-decoration: none;
-                display: block;
-                transition: background-color 0.3s ease, color 0.3s ease;
+            button:hover {
+                background-color: #c0392b;
             }
 
-                .dropdown-content a:hover {
-                    background-color: #f1f1f1;
-                    color: #e74c3c; /* Đổi màu chữ khi hover */
-                }
-
         footer {
-            background-color: rgba(67,1,1,255);
+            background-color: rgba(67, 1, 1, 255);
             color: white;
             text-align: center;
             padding: 10px;
-            margin-top: 10px;
-            margin-bottom: 0;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
         }
     </style>
 </head>
 
 <body>
     <main>
-        <h1 style="color: #FFFF00; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">Đăng Ký</h1>
-        <div class="input-box">
-            <i class="fas fa-user"></i>
-            <input type="text" name="username" placeholder="Tên đăng nhập">
-        </div>
-        <div class="input-box">
-            <i class="fas fa-user"></i>
-            <input type="text" name="name" placeholder="Họ và tên">
-        </div>
-        <div class="input-box">
-            <i class="fas fa-envelope"></i>
-            <input type="email" name="email" placeholder="Email">
-        </div>
-        <div class="input-box">
-            <i class="fas fa-lock"></i>
-            <input type="password" name="password" placeholder="Mật khẩu">
-        </div>
-        <div class="input-box">
-            <i class="fas fa-lock"></i>
-            <input type="password" name="confirm_password" placeholder="Xác nhận mật khẩu">
-        </div>
-        <button type="submit">Đăng ký</button>
+        <form method="post">
+            <h1 style="color: #FFFF00; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">Đăng Ký</h1>
+            <div class="input-box">
+                <i class="fas fa-user"></i>
+                <input asp-for="inputreg.Username" type="text" placeholder="Tên đăng nhập">
+                <span asp-validation-for="inputreg.NameUser" class="text-danger"></span>
+            </div>
+            <div class="input-box">
+                <i class="fas fa-user"></i>
+                <input asp-for="inputreg.NameUser" type="text" placeholder="Họ và tên">
+                <span asp-validation-for="inputreg.Username" class="text-danger"></span>
+            </div>
+            <div class="input-box">
+                <i class="fas fa-lock"></i>
+                <input asp-for="inputreg.PassUser" type="password" placeholder="Mật khẩu">
+                <span asp-validation-for="inputreg.PassUser" class="text-danger"></span>
+            </div>
+            <div class="input-box">
+                <i class="fas fa-lock"></i>
+                <input asp-for="inputreg.ConfirmPassUser" type="password" placeholder="Xác nhận mật khẩu">
+                <span asp-validation-for="inputreg.ConfirmPassUser" class="text-danger"></span>
+            </div>
+            <button type="submit">Đăng ký</button>
+        </form>
     </main>
 </body>
 
