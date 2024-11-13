@@ -16,7 +16,7 @@ public partial class ApptvcakoiContext : DbContext
     {
     }
 
-    public virtual DbSet<Product> Products { get; set; }
+    public virtual DbSet<ProductHome> Products { get; set; }
 
     public virtual DbSet<ProductType> ProductTypes { get; set; }
 
@@ -32,7 +32,7 @@ public partial class ApptvcakoiContext : DbContext
             .UseCollation("utf8mb4_0900_ai_ci")
             .HasCharSet("utf8mb4");
 
-        modelBuilder.Entity<Product>(entity =>
+        modelBuilder.Entity<ProductHome>(entity =>
         {
             entity.HasKey(e => e.Idproduct).HasName("PRIMARY");
 
@@ -57,7 +57,7 @@ public partial class ApptvcakoiContext : DbContext
                 .HasColumnName("destiny_product");
             entity.Property(e => e.IdproductType).HasColumnName("idproduct_type");
             entity.Property(e => e.ImgProduct)
-                .HasMaxLength(45)
+                .HasColumnType("text")
                 .HasColumnName("img_product");
             entity.Property(e => e.NameProduct)
                 .HasColumnType("text")
@@ -127,7 +127,7 @@ public partial class ApptvcakoiContext : DbContext
                 .HasCharSet("utf8mb4");
             entity.Property(e => e.IdproductType).HasColumnName("idproduct_type");
             entity.Property(e => e.ImgProduct)
-                .HasMaxLength(45)
+                .HasColumnType("text")
                 .HasColumnName("img_product");
             entity.Property(e => e.NameProduct)
                 .HasColumnType("text")

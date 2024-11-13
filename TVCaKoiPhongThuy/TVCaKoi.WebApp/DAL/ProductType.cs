@@ -11,5 +11,5 @@ public partial class ProductType
 
     public virtual ICollection<ProductUser> ProductUsers { get; set; } = new List<ProductUser>();
 
-    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+    public virtual ICollection<ProductHome> Products { get; set; } = new List<ProductHome>();
 }
