@@ -1,0 +1,30 @@
+﻿@page
+@model TVCaKoi.WebApp.Pages.Admin.IndexModel
+@{
+}
+
+
+<div class="stat-box stat-box-member">
+    <i class="fas fa-users fa-2x mb-3"></i> <!-- Biểu tượng người dùng -->
+    <h3>Số lượng thành viên</h3>
+    <p id="total-members">@Model.TotalMembers</p>
+    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+</div>
+<div class="stat-box stat-box-post">
+    <i class="fas fa-file-alt fa-2x mb-3"></i> <!-- Biểu tượng bài đăng -->
+    <h3>Số lượng bài viết đã duyệt</h3>
+    <p id="total-posts">@Model.TotalProductApproved</p>
+    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+</div>
+<div class="stat-box stat-box-product">
+    <i class="fas fa-box fa-2x mb-3"></i> <!-- Biểu tượng sản phẩm -->
+    <h3>Số lượng sản phẩm</h3>
+    <p id="total-products">0</p>
+    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+</div>
+<div class="stat-box stat-box-pending">
+    <i class="fas fa-hourglass-half fa-2x mb-3"></i> <!-- Biểu tượng chờ duyệt -->
+    <h3>Số lượng bài viết chưa duyệt</h3>
+    <p id="total-pending-posts">@Model.TotalProductNotApproved</p>
+    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+</div>

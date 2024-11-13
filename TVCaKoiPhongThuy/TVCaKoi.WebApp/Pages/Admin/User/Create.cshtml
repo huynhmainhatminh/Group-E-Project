@@ -1,0 +1,63 @@
+﻿@page
+@model TVCaKoi.WebApp.Pages.Admin.User.CreateModel
+@{
+    ViewData["Title"] = "Thêm người dùng mới";
+}
+
+<div class="container mt-5 custom-shadow text-white bg-dark">
+    <div class="card-header">
+        <h2 class="mb-0">@ViewData["Title"]</h2>
+    </div>
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div class="mb-4">
+                <label asp-for="Users.NameUser" class="form-label fw-bold">Họ và Tên:</label>
+                <input asp-for="Users.NameUser" class="form-control custom-input" placeholder="Nhập họ và tên" />
+                <span asp-validation-for="Users.NameUser" class="text-danger"></span>
+            </div>
+            <div class="mb-4">
+                <label asp-for="Users.Username" class="form-label fw-bold">Tên Người Dùng:</label>
+                <input asp-for="Users.Username" class="form-control custom-input" placeholder="Nhập tên người dùng" />
+                <span asp-validation-for="Users.Username" class="text-danger"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Users.PassUser" class="form-label fw-bold">Mật Khẩu:</label>
+                <input asp-for="Users.PassUser" type="password" class="form-control custom-input" placeholder="Nhập mật khẩu" />
+                <span asp-validation-for="Users.PassUser" class="text-danger"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Users.Phone" class="form-label fw-bold">Số Điện Thoại (nếu có):</label>
+                <input asp-for="Users.Phone" class="form-control custom-input" placeholder="Nhập số điện thoại" />
+                <span asp-validation-for="Users.Phone" class="text-danger"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Users.Email" class="form-label fw-bold">Địa Chỉ Email (nếu có):</label>
+                <input asp-for="Users.Email" class="form-control custom-input" placeholder="Nhập địa chỉ email" />
+                <span asp-validation-for="Users.Email" class="text-danger"></span>
+            </div>
+            <div class="mb-4 custom-select-container">
+                <label asp-for="Users.AccessUser" class="form-label fw-bold me-3">Quyền Truy Cập Tài Khoản:</label>
+                <select asp-for="Users.AccessUser" style="padding: 4px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9; font-size: 15px; color: #333; cursor: pointer; appearance: auto; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); transition: border-color 0.3s ease, box-shadow 0.3s ease; position: relative; top: -4px; margin-right: 10px;">
+                    <option value="none">Chọn</option>
+                    <option value="user">user</option>
+                    <option value="admin">admin</option>
+                </select>
+                <span asp-validation-for="Users.AccessUser" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <input type="submit" value="Tạo tài khoản" class="btn btn-success px-4 custom-btn" />
+                <a class="btn btn-secondary px-4 custom-btn" asp-page="Index">Quay trở lại</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

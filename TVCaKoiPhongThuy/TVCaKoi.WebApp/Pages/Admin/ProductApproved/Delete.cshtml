@@ -1,0 +1,217 @@
+﻿@page
+@model TVCaKoi.WebApp.Pages.Admin.Product.DeleteModel
+@{
+	ViewData["Title"] = "Xóa sản phẩm (đã duyệt)";
+}
+
+<style>
+    .product-image {
+        max-width: 200px;
+        margin-right: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product-image img {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-details {
+        flex-grow: 1;
+    }
+
+    .fengshui-btn.selected {
+        background-color: red;
+        color: white;
+        border: 2px solid yellow; /* Viền màu vàng */
+    }
+
+    .color-btn.selected {
+        background-color: red;
+        color: white;
+        border: 2px solid yellow; /* Viền màu vàng */
+    }
+
+    .color, .fengshui {
+        display: flex;
+        flex-wrap: wrap; /* Cho phép các nút xuống hàng khi không đủ chỗ */
+        gap: 10px; /* Khoảng cách giữa các nút */
+    }
+
+    .color-btn, .fengshui-btn {
+        padding: 8px 12px;
+        font-size: 14px;
+        border: 1px solid #007bff;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: green;
+        color: white;
+        transition: background-color 0.3s, color 0.3s, transform 0.2s;
+    }
+
+    .color-btn:hover, .fengshui-btn:hover {
+        background-color: #007bff;
+        color: #fff;
+        transform: scale(1.05); /* Phóng to nhẹ khi hover */
+    }
+
+    .color-btn.selected, .fengshui-btn.selected {
+        background-color: red;
+        color: white;
+        border: 2px solid yellow;
+    }
+
+
+
+</style>
+
+<div class="container mt-5 custom-shadow text-white bg-dark">
+    <div class="card-header">
+        <h2 class="mb-0">@ViewData["Title"]</h2>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            <div class="d-flex">
+                <!-- Phần bên trái: Hiển thị hình ảnh sản phẩm -->
+                <div class="product-image me-4">
+                    <label asp-for="productss.ImgProduct" class="form-label fw-bold">Hình Ảnh Sản Phẩm</label>
+
+                    <img src="@Url.Content(Model.productss.ImgProduct ?? "~/KOI/asagi.jpg")"
+                         alt="Product Image" style="width: 200px; height: auto;">
+                </div>
+
+                <!-- Phần bên phải: Hiển thị thông tin sản phẩm -->
+                <div class="product-details flex-grow-1">
+                    <input type="hidden" name="itemid" value="@Model.productss.Idproduct" />
+
+                    <div class="mb-3">
+                        <label asp-for="productss.Idproduct" class="form-label fw-bold">Sản Phẩm ID:</label>
+                        <input asp-for="productss.Idproduct" class="form-control" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="productss.NameProduct" class="form-label fw-bold">Tên Sản Phẩm:</label>
+                        <input asp-for="productss.NameProduct" class="form-control" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="productss.Username" class="form-label fw-bold">Người Dùng Đăng:</label>
+                        <input asp-for="productss.Username" class="form-control" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="productss.ColorProduct" class="form-label fw-bold">Màu Sắc:</label>
+                        <div class="color">
+                            <button type="button" class="color-btn" id="Đỏ" onclick="selectColor(this)">Đỏ</button>
+                            <button type="button" class="color-btn" id="Vàng" onclick="selectColor(this)">Vàng</button>
+                            <button type="button" class="color-btn" id="Trắng" onclick="selectColor(this)">Trắng</button>
+                            <button type="button" class="color-btn" id="Cam" onclick="selectColor(this)">Cam</button>
+                            <button type="button" class="color-btn" id="Hồng" onclick="selectColor(this)">Hồng</button>
+                            <button type="button" class="color-btn" id="Bạc" onclick="selectColor(this)">Bạc</button>
+                            <button type="button" class="color-btn" id="Đen" onclick="selectColor(this)">Đen</button>
+                            <button type="button" class="color-btn" id="Nâu" onclick="selectColor(this)">Nâu</button>
+                            <button type="button" class="color-btn" id="Xanh Dương" onclick="selectColor(this)">Xanh Dương</button>
+                            <button type="button" class="color-btn" id="Xanh Lá Cây" onclick="selectColor(this)">Xanh Lá Cây</button>
+                            <button type="button" class="color-btn" id="none-color" onclick="selectColor(this)">Không Có</button>
+                        </div>
+                        <input type="hidden" asp-for="productss.ColorProduct" id="colorProduct" data-colors="@Model.productss.ColorProduct" readonly/>
+                        <span asp-validation-for="productss.ColorProduct" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="productss.DestinyProduct" class="form-label fw-bold">Mệnh Phong Thủy:</label>
+                        <div class="fengshui" style="margin-bottom: 10px;">
+                            <button type="button" class="fengshui-btn" id="Kim" onclick="selectDestiny(this)">Kim</button>
+                            <button type="button" class="fengshui-btn" id="Thủy" onclick="selectDestiny(this)">Thủy</button>
+                            <button type="button" class="fengshui-btn" id="Hỏa" onclick="selectDestiny(this)">Hỏa</button>
+                            <button type="button" class="fengshui-btn" id="Mộc" onclick="selectDestiny(this)">Mộc</button>
+                            <button type="button" class="fengshui-btn" id="Thổ" onclick="selectDestiny(this)">Thổ</button>
+                            <button type="button" class="fengshui-btn" id="none-fengshui" onclick="selectDestiny(this)">Không Có</button>
+                        </div>
+                        <input type="hidden" asp-for="productss.DestinyProduct" id="destinyProduct" data-destinies="@Model.productss.DestinyProduct" readonly/>
+                        <span asp-validation-for="productss.DestinyProduct" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 custom-select-container">
+                        <label asp-for="productss.IdproductType" class="form-label fw-bold me-3">Loại Sản Phẩm:</label>
+                        <select asp-for="productss.IdproductType" disabled style="padding: 4px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9; font-size: 15px; color: #333; cursor: not-allowed; appearance: auto; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); transition: border-color 0.3s ease, box-shadow 0.3s ease; position: relative; top: -5px; margin-right: 10px;">
+                            <option value="0">Chọn</option>
+                            <option value="1">Hồ cá</option>
+                            <option value="2">Cá koi</option>
+                            <option value="3">Sản phẩm chăm sóc cá</option>
+                            <option value="4">Sản phẩm trang trí</option>
+                            <option value="5">Thiết bị</option>
+                            <option value="6">Phụ kiện</option>
+                        </select>
+                        <span asp-validation-for="productss.IdproductType" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="productss.Description" class="form-label fw-bold">Nội Dung Sản Phẩm:</label>
+                        <textarea asp-for="productss.Description" class="form-control custom-input" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <input type="submit" value="Xóa sản phẩm" class="btn btn-danger px-4 custom-btn" />
+                <a class="btn btn-secondary px-4 custom-btn" asp-page="Index">Quay trở lại</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy giá trị các màu sắc đã chọn từ thuộc tính data-colors
+        const colorProductElement = document.getElementById("colorProduct");
+        const selectedColors = colorProductElement ? colorProductElement.dataset.colors : "";
+        // Kiểm tra nếu giá trị là "Không Có"
+        if (selectedColors === "Không Có" || !selectedColors) {
+            // Nếu không có màu nào được chọn hoặc giá trị là "Không Có", tự động chọn nút "Không Có"
+            const noneColorButton = document.getElementById("none-color");
+            if (noneColorButton) {
+                noneColorButton.classList.add("selected");
+                colorProductElement.value = "Không Có";
+            }
+        } else {
+            // Nếu có các màu đã chọn, tách chuỗi thành mảng và áp dụng lớp "selected"
+            const colorsArray = selectedColors.split(", ").map(color => color.trim());
+            colorsArray.forEach(color => {
+                const colorButton = document.getElementById(color);
+                if (colorButton) {
+                    colorButton.classList.add("selected");
+                }
+            });
+            colorProductElement.value = colorsArray.join(", ");
+        }
+
+        // Lấy giá trị các mệnh phong thủy đã chọn từ thuộc tính data-destinies
+        const destinyProductElement = document.getElementById("destinyProduct");
+        const selectedDestinies = destinyProductElement ? destinyProductElement.dataset.destinies : "";
+
+        // Kiểm tra nếu giá trị là "Không Có" hoặc là chuỗi rỗng
+        if (selectedDestinies === "Không Có" || !selectedDestinies) {
+            // Nếu không có mệnh phong thủy nào được chọn hoặc giá trị là "Không Có", tự động chọn nút "Không Có"
+            const noneDestinyButton = document.getElementById("none-fengshui");
+            if (noneDestinyButton) {
+                noneDestinyButton.classList.add("selected");
+                destinyProductElement.value = "Không Có";
+            }
+        } else {
+            // Nếu có các mệnh phong thủy đã chọn, tách chuỗi thành mảng và áp dụng lớp "selected"
+            const destiniesArray = selectedDestinies.split(", ").map(destiny => destiny.trim());
+            destiniesArray.forEach(destiny => {
+                const destinyButton = document.getElementById(destiny);
+                if (destinyButton) {
+                    destinyButton.classList.add("selected");
+                }
+            });
+            destinyProductElement.value = destiniesArray.join(", ");
+        }
+    });
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,102 @@
+﻿@page
+@model TVCaKoi.WebApp.Pages.Admin.ProductNotApproved.IndexModel
+@{
+}
+
+
+
+<div class="container mt-5" style="max-width: 100%;">
+    <div class="d-flex justify-content-between mb-4">
+        <a asp-page="Create" class="btn btn-success">Thêm sản phẩm mới</a>
+
+        <form class="d-flex search-form" method="get" action="">
+            <input asp-for="SearchQuery" type="text" class="form-control search-input me-2" placeholder="Tìm kiếm sản phẩm" />
+            <button type="submit" class="btn btn-primary search-button">Tìm</button>
+        </form>
+    </div>
+
+    <div class="card custom-shadow">
+        <table class="table table-hover table-striped table-bordered m-0" style="width: 100%; max-width: 90vw; table-layout: fixed; font-size: 0.9rem;">
+            <thead class="table-primary text-center">
+                <tr>
+                    <th style="width: 10%;">Id Product</th>
+                    <th style="width: 15%;">Name Product</th>
+                    <th style="width: 25%;">Description</th>
+                    <th style="width: 12%;">Username</th>
+                    <th style="width: 10%;">Color Product</th>
+                    <th style="width: 10%;">Destiny Product</th>
+                    <th style="width: 8%;">Img</th>
+                    <th style="width: 10%;">Type Id</th>
+                    <th style="width: 15%;" class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.productsuser.Any())
+                {
+                    @foreach (var user in Model.productsuser)
+                    {
+                        <tr class="text-center">
+                            <td>@user.IdproductUser</td>
+                            <td>@user.NameProduct</td>
+                            <td>@user.Description</td>
+                            <td>@user.Username</td>
+                            <td>@user.ColorProduct</td>
+                            <td>@user.DestinyProduct</td>
+                            <td>
+                                <img src="@Url.Content(@user.ImgProduct ?? "~/KOI/asagi.jpg")"
+                                     alt="Product Image" style="width: 60px; height: auto;">
+                            </td>
+                            <td>@user.IdproductType</td>
+                            <td class="action-buttons">
+                                <a asp-page="./Edit" asp-route-itemid="@user.IdproductUser" class="btn-edit me-1">Edit</a>
+                                <a asp-page="./Approve" asp-route-itemid="@user.IdproductUser" class="btn btn-primary btn-sm">Approve</a>
+                                <a asp-page="./Delete" asp-route-itemid="@user.IdproductUser" class="btn btn-danger btn-sm">Delete</a>
+
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="9" class="text-center text-muted">Hiện tại không có sản phẩm chưa duyệt</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .action-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+    }
+
+        .action-buttons .btn {
+            width: 75px;
+        }
+</style>
+
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Lấy TempData["SuccessMessage"] từ Razor và lưu vào sessionStorage
+            const successMessage = '@TempData["SuccessMessage"]';
+
+            // Nếu TempData có thông báo thành công, lưu vào sessionStorage
+            if (successMessage && successMessage !== "null") {
+                sessionStorage.setItem("successMessage", successMessage);
+            }
+
+            // Kiểm tra sessionStorage và hiển thị SweetAlert nếu có thông báo thành công
+            const message = sessionStorage.getItem("successMessage");
+            if (message) {
+                Swal.fire("Thành công!", message, "success");
+                sessionStorage.removeItem("successMessage"); // Xóa sau khi hiển thị
+            }
+        });
+    </script>
+}

@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Thống kê</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="~/admin/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="sidebar">
+        <h2>Admin Dashboard</h2>
+        <ul>
+            <li><a class="nav-link" asp-area="" asp-page="/Admin/Index">Thống kê</a></li>
+            <li><a class="nav-link" asp-area="" asp-page="/Admin/User/Index">Quản lý thành viên</a></li>
+
+            <!-- Quản lý sản phẩm với biểu tượng và menu con -->
+            <li>
+                <a href="javascript:void(0)" onclick="toggleSubmenu()" class="nav-link d-flex align-items-center">
+                    Quản lý sản phẩm
+                    <i id="arrowIcon" class="right fas fa-angle-left" style="margin-left: 10px;"></i>
+                </a>
+                <ul id="productSubmenu" style="display: none; padding-left: 20px;">
+                    <li><a class="nav-link" asp-area="" asp-page="/Admin/ProductNotApproved/Index">Chưa duyệt</a></li>
+                    <li><a class="nav-link" asp-area="" asp-page="/Admin/ProductApproved/Index">Đã duyệt</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <h1 class="m-0">Dashboard</h1>
+        <div class="stats mt-4">
+            @RenderBody()
+        </div>
+    </div>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <!-- JavaScript để ẩn/hiện menu con và xoay biểu tượng -->
+    <script>
+        function toggleSubmenu() {
+            var submenu = document.getElementById("productSubmenu");
+            var arrowIcon = document.getElementById("arrowIcon");
+
+            // Toggle hiển thị menu con
+            submenu.style.display = submenu.style.display === "none" ? "block" : "none";
+
+            // Toggle lớp xoay cho biểu tượng
+            arrowIcon.classList.toggle("rotate");
+        }
+    </script>
+
+    <!-- CSS để xoay biểu tượng khi mở menu -->
+    <style>
+        .rotate {
+            transform: rotate(-90deg); /* Xoay mũi tên sang phải */
+            transition: transform 0.3s ease;
+        }
+    </style>
+</body>
+</html>

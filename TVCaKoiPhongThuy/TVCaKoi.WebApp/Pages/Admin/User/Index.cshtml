@@ -1,0 +1,86 @@
+﻿@page
+@model TVCaKoi.WebApp.Pages.Admin.User.IndexModel
+@{
+}
+
+<div class="container mt-5" style="max-width: 100%;">
+    <div class="d-flex justify-content-between mb-4">
+        <!-- Nút Thêm thành viên căn trái -->
+        <a asp-page="Create" class="btn btn-success">Thêm thành viên mới</a>
+
+        <!-- Form tìm kiếm căn phải -->
+        <form class="d-flex search-form" method="get" action="">
+            <input asp-for="SearchQuery" type="text" class="form-control search-input me-2" placeholder="Tìm kiếm người dùng" />
+            <button type="submit" class="btn btn-primary search-button">Tìm</button>
+        </form>
+    </div>
+
+    <!-- Bảng hiển thị dữ liệu -->
+    <div class="card custom-shadow">
+        <table class="table table-hover table-striped table-bordered m-0">
+            <thead class="table-primary text-center">
+                <tr>
+                    <th>Id User</th>
+                    <th>Name User</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Facebook</th>
+                    <th>Access</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Users.Any())
+                {
+                    @foreach (var user in Model.Users)
+                    {
+                        <tr class="text-center">
+                            <td>@user.IdUser</td>
+                            <td>@user.NameUser</td>
+                            <td>@user.Username</td>
+                            <td>@user.PassUser</td>
+                            <td>@user.Phone</td>
+                            <td>@user.Email</td>
+                            <td>@user.Facebook</td>
+                            <td>@user.AccessUser</td>
+                            <td>
+                                <a asp-page="./Edit" asp-route-itemid="@user.IdUser" class="btn-edit me-1">Edit</a>
+                                <a asp-page="./Delete" asp-route-itemid="@user.IdUser" class="btn-delete">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="9" class="text-center text-muted">No user data available</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Lấy TempData["SuccessMessage"] từ Razor và lưu vào sessionStorage
+            const successMessage = '@TempData["SuccessMessage"]';
+
+            // Nếu TempData có thông báo thành công, lưu vào sessionStorage
+            if (successMessage && successMessage !== "null") {
+                sessionStorage.setItem("successMessage", successMessage);
+            }
+
+            // Kiểm tra sessionStorage và hiển thị SweetAlert nếu có thông báo thành công
+            const message = sessionStorage.getItem("successMessage");
+            if (message) {
+                Swal.fire("Thành công!", message, "success");
+                sessionStorage.removeItem("successMessage"); // Xóa sau khi hiển thị
+            }
+        });
+    </script>
+}

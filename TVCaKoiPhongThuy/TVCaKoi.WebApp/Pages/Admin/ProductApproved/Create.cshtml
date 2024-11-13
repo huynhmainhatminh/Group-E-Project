@@ -1,0 +1,230 @@
+﻿@page
+@model TVCaKoi.WebApp.Pages.Admin.ProductApproved.CreateModel
+@{
+    ViewData["Title"] = "Thêm sản phẩm (đã duyệt)";
+}
+
+<style>
+    .fengshui-btn.selected {
+        background-color: red;
+        color: white;
+        border: 2px solid yellow; /* Viền màu vàng */
+    }
+
+    .color-btn.selected {
+        background-color: red;
+        color: white;
+        border: 2px solid yellow; /* Viền màu vàng */
+    }
+
+    .custom-file-upload {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .upload-label {
+        cursor: pointer;
+        padding: 8px 12px;
+        border: 1px solid #007bff;
+        border-radius: 5px;
+        color: #007bff;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .upload-label:hover {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .file-name {
+        font-size: 0.9rem;
+        font-style: italic;
+        color: #aaa; /* Màu xám rất nhạt */
+    }
+</style>
+
+<div class="container mt-5 custom-shadow text-white bg-dark">
+    <div class="card-header">
+        <h2 class="mb-0">@ViewData["Title"]</h2>
+    </div>
+    <div class="card-body">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div class="mb-4">
+                <label asp-for="productss.NameProduct" class="form-label fw-bold">Tên Sản Phẩm:</label>
+                <input asp-for="productss.NameProduct" class="form-control custom-input" placeholder="Nhập tên sản phẩm" />
+                <span asp-validation-for="productss.NameProduct" class="text-danger"></span>
+            </div>
+            <div class="mb-4">
+                <label asp-for="productss.Username" class="form-label fw-bold">Tên Người Dùng:</label>
+                <input asp-for="productss.Username" class="form-control custom-input" placeholder="Nhập tên người dùng" />
+                <span asp-validation-for="productss.Username" class="text-danger"></span>
+            </div>
+            <div class="mb-4">
+                <label asp-for="productss.ColorProduct" class="form-label fw-bold">Màu Sắc:</label>
+                <div class="color" style="margin-bottom: 10px;">
+                    <button type="button" class="color-btn" id="Đỏ" onclick="selectColor(this)">Đỏ</button>
+                    <button type="button" class="color-btn" id="Vàng" onclick="selectColor(this)">Vàng</button>
+                    <button type="button" class="color-btn" id="Trắng" onclick="selectColor(this)">Trắng</button>
+                    <button type="button" class="color-btn" id="Cam" onclick="selectColor(this)">Cam</button>
+                    <button type="button" class="color-btn" id="Hồng" onclick="selectColor(this)">Hồng</button>
+                    <button type="button" class="color-btn" id="Bạc" onclick="selectColor(this)">Bạc</button>
+                    <button type="button" class="color-btn" id="Đen" onclick="selectColor(this)">Đen</button>
+                    <button type="button" class="color-btn" id="Nâu" onclick="selectColor(this)">Nâu</button>
+                    <button type="button" class="color-btn" id="Xanh Dương" onclick="selectColor(this)">Xanh Dương</button>
+                    <button type="button" class="color-btn" id="Xanh Lá Cây" onclick="selectColor(this)">Xanh Lá Cây</button>
+                    <button type="button" class="color-btn" id="none-color" onclick="selectColor(this)">Không Có</button>
+                </div>
+                <input type="hidden" asp-for="productss.ColorProduct" id="colorProduct" />
+                <span asp-validation-for="productss.ColorProduct" class="text-danger"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="productss.DestinyProduct" class="form-label fw-bold">Mệnh Phong Thủy:</label>
+                <div class="fengshui" style="margin-bottom: 10px;">
+                    <button type="button" class="fengshui-btn" id="Kim" onclick="selectDestiny(this)">Kim</button>
+                    <button type="button" class="fengshui-btn" id="Thủy" onclick="selectDestiny(this)">Thủy</button>
+                    <button type="button" class="fengshui-btn" id="Hỏa" onclick="selectDestiny(this)">Hỏa</button>
+                    <button type="button" class="fengshui-btn" id="Mộc" onclick="selectDestiny(this)">Mộc</button>
+                    <button type="button" class="fengshui-btn" id="Thổ" onclick="selectDestiny(this)">Thổ</button>
+                    <button type="button" class="fengshui-btn" id="none-fengshui" onclick="selectDestiny(this)">Không Có</button>
+                </div>
+                <input type="hidden" asp-for="productss.DestinyProduct" id="destinyProduct" />
+                <span asp-validation-for="productss.DestinyProduct" class="text-danger"></span>
+            </div>
+            <div class="mb-4 custom-select-container">
+                <label asp-for="productss.IdproductType" class="form-label fw-bold me-3">Loại Sản Phẩm:</label>
+                <select asp-for="productss.IdproductType" style="padding: 4px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9; font-size: 15px; color: #333; cursor: pointer; appearance: auto; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); transition: border-color 0.3s ease, box-shadow 0.3s ease; position: relative; top: -4px; margin-right: 10px;">
+                    <option value="0">Chọn</option>
+                    <option value="1">Hồ cá</option>
+                    <option value="2">Cá koi</option>
+                    <option value="3">Sản phẩm chăm sóc cá</option>
+                    <option value="4">Sản phẩm trang trí</option>
+                    <option value="5">Thiết bị</option>
+                    <option value="6">Phụ kiện</option>
+                </select>
+                <span asp-validation-for="productss.IdproductType" class="text-danger"></span>
+            </div>
+            <div class="mb-4">
+                <label asp-for="productss.Description" class="form-label fw-bold">Nội Dung Sản Phẩm:</label>
+                <textarea asp-for="productss.Description" class="form-control custom-input" placeholder="Nhập nội dung sản phẩm" required></textarea>
+                <span asp-validation-for="productss.Description" class="text-danger"></span>
+            </div>
+            <div class="mb-4">
+                <label class="form-label fw-bold">Hình Ảnh Sản Phẩm:</label>
+
+                <!-- Nút tải ảnh lên tùy chỉnh -->
+                <div class="custom-file-upload">
+                    <!-- Tải lên ảnh: sử dụng name="Image" để trỏ đến thuộc tính IFormFile -->
+                    <input type="file" id="image" name="Image" accept="image/*" required style="display: none;" />
+                    <label for="image" class="upload-label btn btn-outline-primary">
+                        <i class="fas fa-upload"></i> Chọn ảnh
+                    </label>
+                    <span class="file-name">Chưa có ảnh nào được chọn</span>
+                </div>
+
+                <!-- Hiển thị lỗi nếu có -->
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="d-flex justify-content-between">
+                <input type="submit" value="Tạo sản phẩm" class="btn btn-success px-4 custom-btn" />
+                <a class="btn btn-secondary px-4 custom-btn" asp-page="Index">Quay trở lại</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.querySelector("form").addEventListener("submit", function (event) {
+        const colorProduct = document.getElementById("colorProduct").value;
+        const destinyProduct = document.getElementById("destinyProduct").value;
+
+        if (!colorProduct || !destinyProduct) {
+            event.preventDefault();
+            swal("Đã xảy ra lỗi!", "Vui lòng hãy nhập đầy đủ thông tin!", "error");
+            return;
+        }
+    });
+
+
+    function selectDestiny(button) {
+        // Kiểm tra nếu nút "Không Có" được nhấp
+        if (button.id === "none-fengshui") {
+            // Bỏ lớp 'selected' khỏi tất cả các nút
+            const buttons = document.querySelectorAll('.fengshui-btn');
+            buttons.forEach(btn => btn.classList.remove('selected'));
+        } else {
+            // Nếu nút khác "Không Có" được nhấp, bỏ chọn nút "Không Có"
+            document.getElementById("none-fengshui").classList.remove('selected');
+        }
+
+        // Toggle lớp 'selected' cho nút hiện tại
+        button.classList.toggle('selected');
+
+        // Lấy tất cả các nút đã chọn và tạo chuỗi giá trị
+        const selectedValues = Array.from(document.querySelectorAll('.fengshui-btn.selected'))
+            .map(btn => btn.innerText)
+            .join(", ");
+
+        // Cập nhật input ẩn với giá trị chuỗi
+        document.getElementById("destinyProduct").value = selectedValues;
+    }
+
+    function selectColor(button) {
+        // Lấy tất cả các nút màu đã chọn
+        const selectedButtons = document.querySelectorAll('.color-btn.selected');
+
+        // Nếu nút "Không Có" được nhấp
+        if (button.id === "none-color") {
+            // Bỏ lớp 'selected' khỏi tất cả các nút màu
+            const buttons = document.querySelectorAll('.color-btn');
+            buttons.forEach(btn => btn.classList.remove('selected'));
+
+            // Chỉ thêm lớp 'selected' cho nút "Không Có"
+            button.classList.add('selected');
+        } else {
+            // Nếu đã chọn đủ 3 màu và nút này chưa được chọn, hiển thị cảnh báo và ngăn chọn thêm
+            if (selectedButtons.length >= 3 && !button.classList.contains('selected')) {
+                swal("Cảnh báo!", "Nhập tối đa 3 màu!", "warning");
+                return;
+            }
+
+            // Bỏ chọn nút "Không Có" nếu nút màu khác được chọn
+            document.getElementById("none-color").classList.remove('selected');
+
+            // Thêm hoặc bỏ lớp 'selected' cho nút hiện tại
+            button.classList.toggle('selected');
+        }
+
+        // Cập nhật giá trị input ẩn với danh sách các màu đã chọn
+        updateSelectedColors();
+    }
+
+    // Hàm cập nhật input ẩn với các màu đã chọn
+    function updateSelectedColors() {
+        const selectedColors = Array.from(document.querySelectorAll('.color-btn.selected'))
+            .map(btn => btn.innerText)
+            .join(", ");
+
+        document.getElementById("colorProduct").value = selectedColors;
+    }
+
+</script>
+
+
+
+<script>
+    document.getElementById("image").addEventListener("change", function () {
+        const fileName = this.files[0] ? this.files[0].name : "Chưa có ảnh nào được chọn";
+        document.querySelector(".file-name").textContent = fileName;
+    });
+</script>
+
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
