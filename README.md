@@ -21,6 +21,11 @@ Database : [MySQL](https://www.mysql.com/downloads/)
 + Microsoft.EntityFrameworkCore.Tools
 + Pomelo.EntityFrameworkCore.MySql
 
+### Link Website Online
++ URL USER : http://103.20.102.38/
++ URL ADMIN : http://103.20.102.38/Admin/Index
++ Login Admin : admin | password
+
 
 ## Danh sách thành viên đóng góp cho dự án
 | STT | Họ và Tên | MSSV |
