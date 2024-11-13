@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TVCaKoi.WebApp.Pages.Admin.User
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly ApptvcakoiContext _apptvcakoiContext;

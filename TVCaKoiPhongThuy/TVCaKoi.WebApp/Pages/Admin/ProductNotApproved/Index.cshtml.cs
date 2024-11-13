@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using TVCaKoi.WebApp.DAL;
@@ -6,6 +7,7 @@ using TVCaKoi.WebApp.Models;
 
 namespace TVCaKoi.WebApp.Pages.Admin.ProductNotApproved
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly ApptvcakoiContext _apptvcakoiContext;
